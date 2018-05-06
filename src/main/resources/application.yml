@@ -1,0 +1,8 @@
+# 应用配置
+server:
+  port: 8099
+## es数据源配置
+elasticsearch:
+  host: localhost
+  clustername: elasticsearch
+  port: 9300
