@@ -25,4 +25,8 @@ public class AppCrashLogServiceImpl implements AppCrashLogService {
     public AppCrashLogWithBLOBs findOne(Integer id) {
         return appCrashLogRepo.findOne(id);
     }
+
+    public void batchSave(Iterable<AppCrashLogWithBLOBs> logs) {
+        appCrashLogRepo.save(logs);
+    }
 }

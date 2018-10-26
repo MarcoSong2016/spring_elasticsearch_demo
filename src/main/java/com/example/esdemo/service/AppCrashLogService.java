@@ -8,4 +8,6 @@ public interface AppCrashLogService {
     Iterable<AppCrashLogWithBLOBs> findAll();
 
     AppCrashLogWithBLOBs findOne(Integer id);
+
+
 }
