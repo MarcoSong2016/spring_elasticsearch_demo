@@ -6,8 +6,6 @@ import com.example.esdemo.entity.AppCrashLogWithBLOBs;
 import com.example.esdemo.service.AppCrashLogService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.elasticsearch.core.ElasticsearchTemplate;
-import org.springframework.data.elasticsearch.core.query.NativeSearchQueryBuilder;
-import org.springframework.data.elasticsearch.core.query.SearchQuery;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,8 +13,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
-
-import static org.elasticsearch.index.query.QueryBuilders.regexpQuery;
 
 @RestController
 @RequestMapping("mysqlData")
@@ -66,10 +62,11 @@ public class MysqlDataController {
 
     @GetMapping("findByWord")
     public ResponseEntity findByWord() {
-        SearchQuery searchQuery = new NativeSearchQueryBuilder().withFilter(regexpQuery("exceptionInfo", "*IllegalStateException*"))
-                .build();
-        List<AppCrashLogWithBLOBs> articles = elasticsearchTemplate.queryForList(searchQuery, AppCrashLogWithBLOBs.class);
-        return new ResponseEntity(articles.size(), HttpStatus.OK);
+//        SearchQuery searchQuery = new NativeSearchQueryBuilder().withFilter(regexpQuery("exceptionInfo", "*IllegalStateException*"))
+//                .build();
+//        List<AppCrashLogWithBLOBs> logs = elasticsearchTemplate.queryForList(searchQuery, AppCrashLogWithBLOBs.class);
+        List<AppCrashLogWithBLOBs> logs = appCrashLogService.searchByQuery();
+        return new ResponseEntity(logs.size(), HttpStatus.OK);
     }
 
 }
