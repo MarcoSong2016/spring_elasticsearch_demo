@@ -1,0 +1,274 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.esdemo.dao.AppCrashLogMapper">
+    <resultMap id="BaseResultMap" type="com.example.esdemo.entity.AppCrashLog">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="sdk_id" jdbcType="VARCHAR" property="sdkId"/>
+        <result column="sdk_ver" jdbcType="VARCHAR" property="sdkVer"/>
+        <result column="os" jdbcType="VARCHAR" property="os"/>
+        <result column="os_version" jdbcType="VARCHAR" property="osVersion"/>
+        <result column="mobile_model" jdbcType="VARCHAR" property="mobileModel"/>
+        <result column="client_id" jdbcType="VARCHAR" property="clientId"/>
+        <result column="app_id" jdbcType="VARCHAR" property="appId"/>
+        <result column="package_id" jdbcType="VARCHAR" property="packageId"/>
+        <result column="package_ver_name" jdbcType="VARCHAR" property="packageVerName"/>
+        <result column="package_ver_code" jdbcType="VARCHAR" property="packageVerCode"/>
+        <result column="patch_id" jdbcType="VARCHAR" property="patchId"/>
+        <result column="patch_ver" jdbcType="INTEGER" property="patchVer"/>
+        <result column="user_id" jdbcType="INTEGER" property="userId"/>
+        <result column="crash_timestamp" jdbcType="INTEGER" property="crashTimestamp"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+    </resultMap>
+    <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.example.esdemo.entity.AppCrashLogWithBLOBs">
+        <result column="exception_info" jdbcType="LONGVARCHAR" property="exceptionInfo"/>
+        <result column="ext_info" jdbcType="LONGVARCHAR" property="extInfo"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    id, sdk_id, sdk_ver, os, os_version, mobile_model, client_id, app_id, package_id, 
+    package_ver_name, package_ver_code, patch_id, patch_ver, user_id, crash_timestamp, 
+    create_time
+  </sql>
+    <sql id="Blob_Column_List">
+    exception_info, ext_info
+  </sql>
+    <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+        select
+        <include refid="Base_Column_List"/>
+        ,
+        <include refid="Blob_Column_List"/>
+        from app_crash_log
+        where id = #{id,jdbcType=INTEGER}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from app_crash_log
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+    <insert id="insert" parameterType="com.example.esdemo.entity.AppCrashLogWithBLOBs">
+    insert into app_crash_log (id, sdk_id, sdk_ver, 
+      os, os_version, mobile_model, 
+      client_id, app_id, package_id, 
+      package_ver_name, package_ver_code, patch_id, 
+      patch_ver, user_id, crash_timestamp, 
+      create_time, exception_info, ext_info
+      )
+    values (#{id,jdbcType=INTEGER}, #{sdkId,jdbcType=VARCHAR}, #{sdkVer,jdbcType=VARCHAR}, 
+      #{os,jdbcType=VARCHAR}, #{osVersion,jdbcType=VARCHAR}, #{mobileModel,jdbcType=VARCHAR}, 
+      #{clientId,jdbcType=VARCHAR}, #{appId,jdbcType=VARCHAR}, #{packageId,jdbcType=VARCHAR}, 
+      #{packageVerName,jdbcType=VARCHAR}, #{packageVerCode,jdbcType=VARCHAR}, #{patchId,jdbcType=VARCHAR}, 
+      #{patchVer,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, #{crashTimestamp,jdbcType=INTEGER}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{exceptionInfo,jdbcType=LONGVARCHAR}, #{extInfo,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+    <insert id="insertSelective" parameterType="com.example.esdemo.entity.AppCrashLogWithBLOBs">
+        insert into app_crash_log
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                id,
+            </if>
+            <if test="sdkId != null">
+                sdk_id,
+            </if>
+            <if test="sdkVer != null">
+                sdk_ver,
+            </if>
+            <if test="os != null">
+                os,
+            </if>
+            <if test="osVersion != null">
+                os_version,
+            </if>
+            <if test="mobileModel != null">
+                mobile_model,
+            </if>
+            <if test="clientId != null">
+                client_id,
+            </if>
+            <if test="appId != null">
+                app_id,
+            </if>
+            <if test="packageId != null">
+                package_id,
+            </if>
+            <if test="packageVerName != null">
+                package_ver_name,
+            </if>
+            <if test="packageVerCode != null">
+                package_ver_code,
+            </if>
+            <if test="patchId != null">
+                patch_id,
+            </if>
+            <if test="patchVer != null">
+                patch_ver,
+            </if>
+            <if test="userId != null">
+                user_id,
+            </if>
+            <if test="crashTimestamp != null">
+                crash_timestamp,
+            </if>
+            <if test="createTime != null">
+                create_time,
+            </if>
+            <if test="exceptionInfo != null">
+                exception_info,
+            </if>
+            <if test="extInfo != null">
+                ext_info,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null">
+                #{id,jdbcType=INTEGER},
+            </if>
+            <if test="sdkId != null">
+                #{sdkId,jdbcType=VARCHAR},
+            </if>
+            <if test="sdkVer != null">
+                #{sdkVer,jdbcType=VARCHAR},
+            </if>
+            <if test="os != null">
+                #{os,jdbcType=VARCHAR},
+            </if>
+            <if test="osVersion != null">
+                #{osVersion,jdbcType=VARCHAR},
+            </if>
+            <if test="mobileModel != null">
+                #{mobileModel,jdbcType=VARCHAR},
+            </if>
+            <if test="clientId != null">
+                #{clientId,jdbcType=VARCHAR},
+            </if>
+            <if test="appId != null">
+                #{appId,jdbcType=VARCHAR},
+            </if>
+            <if test="packageId != null">
+                #{packageId,jdbcType=VARCHAR},
+            </if>
+            <if test="packageVerName != null">
+                #{packageVerName,jdbcType=VARCHAR},
+            </if>
+            <if test="packageVerCode != null">
+                #{packageVerCode,jdbcType=VARCHAR},
+            </if>
+            <if test="patchId != null">
+                #{patchId,jdbcType=VARCHAR},
+            </if>
+            <if test="patchVer != null">
+                #{patchVer,jdbcType=INTEGER},
+            </if>
+            <if test="userId != null">
+                #{userId,jdbcType=INTEGER},
+            </if>
+            <if test="crashTimestamp != null">
+                #{crashTimestamp,jdbcType=INTEGER},
+            </if>
+            <if test="createTime != null">
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="exceptionInfo != null">
+                #{exceptionInfo,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="extInfo != null">
+                #{extInfo,jdbcType=LONGVARCHAR},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="com.example.esdemo.entity.AppCrashLogWithBLOBs">
+        update app_crash_log
+        <set>
+            <if test="sdkId != null">
+                sdk_id = #{sdkId,jdbcType=VARCHAR},
+            </if>
+            <if test="sdkVer != null">
+                sdk_ver = #{sdkVer,jdbcType=VARCHAR},
+            </if>
+            <if test="os != null">
+                os = #{os,jdbcType=VARCHAR},
+            </if>
+            <if test="osVersion != null">
+                os_version = #{osVersion,jdbcType=VARCHAR},
+            </if>
+            <if test="mobileModel != null">
+                mobile_model = #{mobileModel,jdbcType=VARCHAR},
+            </if>
+            <if test="clientId != null">
+                client_id = #{clientId,jdbcType=VARCHAR},
+            </if>
+            <if test="appId != null">
+                app_id = #{appId,jdbcType=VARCHAR},
+            </if>
+            <if test="packageId != null">
+                package_id = #{packageId,jdbcType=VARCHAR},
+            </if>
+            <if test="packageVerName != null">
+                package_ver_name = #{packageVerName,jdbcType=VARCHAR},
+            </if>
+            <if test="packageVerCode != null">
+                package_ver_code = #{packageVerCode,jdbcType=VARCHAR},
+            </if>
+            <if test="patchId != null">
+                patch_id = #{patchId,jdbcType=VARCHAR},
+            </if>
+            <if test="patchVer != null">
+                patch_ver = #{patchVer,jdbcType=INTEGER},
+            </if>
+            <if test="userId != null">
+                user_id = #{userId,jdbcType=INTEGER},
+            </if>
+            <if test="crashTimestamp != null">
+                crash_timestamp = #{crashTimestamp,jdbcType=INTEGER},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="exceptionInfo != null">
+                exception_info = #{exceptionInfo,jdbcType=LONGVARCHAR},
+            </if>
+            <if test="extInfo != null">
+                ext_info = #{extInfo,jdbcType=LONGVARCHAR},
+            </if>
+        </set>
+        where id = #{id,jdbcType=INTEGER}
+    </update>
+    <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.example.esdemo.entity.AppCrashLogWithBLOBs">
+    update app_crash_log
+    set sdk_id = #{sdkId,jdbcType=VARCHAR},
+      sdk_ver = #{sdkVer,jdbcType=VARCHAR},
+      os = #{os,jdbcType=VARCHAR},
+      os_version = #{osVersion,jdbcType=VARCHAR},
+      mobile_model = #{mobileModel,jdbcType=VARCHAR},
+      client_id = #{clientId,jdbcType=VARCHAR},
+      app_id = #{appId,jdbcType=VARCHAR},
+      package_id = #{packageId,jdbcType=VARCHAR},
+      package_ver_name = #{packageVerName,jdbcType=VARCHAR},
+      package_ver_code = #{packageVerCode,jdbcType=VARCHAR},
+      patch_id = #{patchId,jdbcType=VARCHAR},
+      patch_ver = #{patchVer,jdbcType=INTEGER},
+      user_id = #{userId,jdbcType=INTEGER},
+      crash_timestamp = #{crashTimestamp,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      exception_info = #{exceptionInfo,jdbcType=LONGVARCHAR},
+      ext_info = #{extInfo,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+    <update id="updateByPrimaryKey" parameterType="com.example.esdemo.entity.AppCrashLog">
+    update app_crash_log
+    set sdk_id = #{sdkId,jdbcType=VARCHAR},
+      sdk_ver = #{sdkVer,jdbcType=VARCHAR},
+      os = #{os,jdbcType=VARCHAR},
+      os_version = #{osVersion,jdbcType=VARCHAR},
+      mobile_model = #{mobileModel,jdbcType=VARCHAR},
+      client_id = #{clientId,jdbcType=VARCHAR},
+      app_id = #{appId,jdbcType=VARCHAR},
+      package_id = #{packageId,jdbcType=VARCHAR},
+      package_ver_name = #{packageVerName,jdbcType=VARCHAR},
+      package_ver_code = #{packageVerCode,jdbcType=VARCHAR},
+      patch_id = #{patchId,jdbcType=VARCHAR},
+      patch_ver = #{patchVer,jdbcType=INTEGER},
+      user_id = #{userId,jdbcType=INTEGER},
+      crash_timestamp = #{crashTimestamp,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
