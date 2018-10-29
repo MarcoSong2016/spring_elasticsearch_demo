@@ -11,5 +11,8 @@ public interface AppCrashLogService {
 
     AppCrashLogWithBLOBs findOne(Integer id);
 
-    public List<AppCrashLogWithBLOBs> searchByQuery();
+    public List<AppCrashLogWithBLOBs> searchByQuery(String word, String startTime, String endTime);
+
+    Iterable<AppCrashLogWithBLOBs> batchSave(Iterable<AppCrashLogWithBLOBs> appCrashLogWithBLOBs);
+
 }

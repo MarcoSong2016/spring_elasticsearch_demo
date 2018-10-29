@@ -1,6 +1,7 @@
 package com.example.esdemo.entity;
 
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.elasticsearch.annotations.Document;
 
@@ -38,7 +39,7 @@ public class AppCrashLog {
     private Integer userId;
 
     private Integer crashTimestamp;
-
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private Date createTime;
 
     public Integer getId() {
