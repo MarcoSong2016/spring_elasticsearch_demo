@@ -79,8 +79,14 @@ public class MysqlDataController {
     @GetMapping("batchSave")
     public ResponseEntity batchSave(Integer startId, Integer endId) {
         List<AppCrashLogWithBLOBs> logs = appCrashLogMapper.findByIdRange(startId, endId);
-        appCrashLogService.batchSave(logs);
-        return new ResponseEntity(logs, HttpStatus.OK);
+
+        final Integer batchInsertSize = 3000;
+        List<List<AppCrashLogWithBLOBs>> partition = Lists.partition(logs, batchInsertSize);
+        //每次更新3000个
+        for (List<AppCrashLogWithBLOBs> insertList : partition) {
+            appCrashLogService.batchSave(insertList);
+        }
+        return new ResponseEntity(HttpStatus.OK);
     }
 
     @GetMapping("findCount")
